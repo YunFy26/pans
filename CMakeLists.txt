@@ -64,6 +64,7 @@ message(
     "Compiler default work jobs: ${CMAKE_BUILD_PARALLEL_LEVEL}"
 )
 
+# 把编译选项集中放到 cmake/pansOptions.cmake 中
 include(cmake/pansOptions.cmake)
 
 add_subdirectory(pans)
