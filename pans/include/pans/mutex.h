@@ -28,6 +28,9 @@ inline void cpu_relax() noexcept
 namespace pans
 {
 #if defined(__linux__) && defined(__GLIBC__)
+/**
+ * @brief 基于 @link(pthread_spinlock_t)  
+ */
 class Spinlock
 {
 public:
@@ -61,7 +64,7 @@ public:
 private:
     // pthread_spinlock_t 是 pthread 库定义的自旋锁类型
     pthread_spinlock_t m_mutex{};
-};
+}; // Spinlock
 
 #else
 class Spinlock
@@ -90,6 +93,7 @@ public:
         
     }
 
+    // [[nodiscard]] 表示这个函数的返回值不应该被忽略
     [[nodiscard]] bool try_lock() noexcept
     {
         return !m_mutex.test_and_set(std::memory_order_acquire);
